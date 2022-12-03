@@ -6,6 +6,7 @@
   "repository": "git@github.com:eqcentric/adapter-js-core.git",
   "author": "Nghia Le Trong",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "tsc && npx tsc-alias"
   },
