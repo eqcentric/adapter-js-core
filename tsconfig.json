@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "None",
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
@@ -25,7 +25,7 @@
       "@*": ["*"],
       "@dto/*": ["Dto/*"],
       "@providers/*": ["Providers/*"],
-      "@configs/*": ["Config/*"],
+      "@configs/*": ["Config/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
