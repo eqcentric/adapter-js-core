@@ -1,8 +1,8 @@
-import { SERVICE } from '@config/service';
+import { SERVICE } from '@Config/service';
 import ProviderContract from '@providers/ProviderContract';
 import { container, injectable } from 'tsyringe';
 import { BatchRecorder, jsonEncoder, Tracer, sampler } from 'zipkin';
-import { app } from '@config/app';
+import { app } from '@Config/app';
 import CLSContext from 'zipkin-context-cls';
 import { HttpLogger } from 'zipkin-transport-http';
 

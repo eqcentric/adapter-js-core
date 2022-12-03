@@ -10,7 +10,7 @@ export const internalTransCaptureHandler = (req: Request, res: Response, next: N
     useFactory: (): internalTransDto => {
       return {
         id: tranId,
-        env: tranEnv,
+        env: tranEnv || 'dev', // default is dev environment
       };
     },
   });

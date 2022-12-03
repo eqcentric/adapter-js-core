@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from "axios";
-import _, { padStart } from "lodash";
+import { padStart, merge, pick } from "lodash";
 import {
   internalMetadata,
   internalTransDto,
@@ -13,14 +13,14 @@ export class ApiClient {
   private readonly apiUrl: string;
   private readonly integrationId: number;
   private readonly metaData: internalMetadata;
-  private readonly mappingOutputViews: Map<string, string>;
+  private mappingOutputViews: Map<string, string>;
 
   constructor(apiUrl: string, integrationId: number, options?: any) {
     this.apiUrl = apiUrl;
     this.integrationId = integrationId;
     this.options = {
       baseURL: apiUrl,
-      timeout: 1200,
+      timeout: 1000 * 120, // 120(s)
       headers: {
         Accept: "application/json",
       },
@@ -39,14 +39,14 @@ export class ApiClient {
         meta.scopes = [];
       }
 
-      this.metaData = _.pick(meta, ["action", "scopes"]);
+      this.metaData = pick(meta, ["action", "scopes"]);
     }
 
     // support tracing packages
     const tracingData: internalTransDto = options.tracingData;
     delete options.tracingData;
     if (tracingData.id != undefined && tracingData.env != undefined) {
-      _.merge(this.options.headers, {
+      merge(this.options.headers, {
         "X-Integration-Trans-Id": tracingData.id,
         "X-Integration-Env": tracingData.env,
       });
@@ -58,16 +58,12 @@ export class ApiClient {
       delete options.mappingOutputViews;
     }
 
-    this.options = _.merge(this.options, options);
+    this.options = merge(this.options, options);
 
     this.client = axios.create(this.options);
   }
 
-  async sendData(
-    data: Array<any>,
-    keys: Array<any>,
-    collectionName: string
-  ): Promise<boolean> {
+  async sendData(data: Array<any>, keys: Array<any>, collectionName: string): Promise<boolean> {
     const payload = {
       keys,
       data: {
@@ -89,6 +85,7 @@ export class ApiClient {
       `/internal/integrations/${this.integrationId}/data`,
       body
     );
+
     return true;
   }
 
