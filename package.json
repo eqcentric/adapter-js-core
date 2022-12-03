@@ -2,11 +2,9 @@
   "name": "adapter-js-core",
   "version": "1.0.0",
   "description": "adapter js core ",
-  "main": "index.js",
   "repository": "git@github.com:eqcentric/adapter-js-core.git",
   "author": "Nghia Le Trong",
   "license": "MIT",
-  "type": "commonjs",
   "scripts": {
     "build": "tsc && npx tsc-alias"
   },
