@@ -3,3 +3,5 @@ dist
 yarn-debug.log*
 yarn-error.log
 .idea
+package-lock.json
+yarn.lock
