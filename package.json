@@ -1,24 +1,31 @@
 {
-  "name": "adapter-js-core",
-  "version": "1.0.0",
+  "name": "makini-adapter-js-core",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "description": "adapter js core ",
   "repository": "git@github.com:eqcentric/adapter-js-core.git",
   "author": "Nghia Le Trong",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && npx tsc-alias"
+    "build": "tsc && npx tsc-alias",
+    "prepare": "npm run build"
   },
   "dependencies": {
-    "aws-sdk": "^2.1267.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.193.0",
+    "@sentry/node": "^7.16.0",
+    "@sentry/tracing": "^7.16.0",
+    "aws-sdk": "^2.1267.0",
+    "axios": "^1.2.2",
     "lodash": "^4.17.21",
     "tsyringe": "^4.7.0",
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "winston-cloudwatch": "^6.1.1",
     "winston-daily-rotate-file": "^4.7.1",
-    "@sentry/node": "^7.16.0",
-    "@sentry/tracing": "^7.16.0",
     "zipkin": "^0.22.0",
     "zipkin-context-cls": "^0.22.0",
     "zipkin-instrumentation-axiosjs": "^0.22.0",
@@ -30,8 +37,8 @@
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.6.3",
     "@types/uuid": "^9.0.0",
-    "typescript": "^4.9.3",
+    "@types/zipkin-context-cls": "^0.11.3",
     "tsconfig-paths": "^4.1.1",
-    "@types/zipkin-context-cls": "^0.11.3"
+    "typescript": "^4.9.3"
   }
 }
