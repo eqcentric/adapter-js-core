@@ -1,4 +1,4 @@
-import ProviderContract from '@providers/ProviderContract';
+import {ProviderContract} from '@providers/ProviderContract';
 import { LOG } from '@configs/log';
 import { internalTransDto } from '@Dto/InternalDto';
 import { container, injectable } from 'tsyringe';
@@ -8,7 +8,7 @@ import WinstonCloudWatch from 'winston-cloudwatch';
 import AWS from 'aws-sdk';
 
 @injectable()
-class LoggingService implements ProviderContract {
+export class LoggingService implements ProviderContract {
   boot(): any {
     container.register('logger', {
       useFactory: () => {
@@ -76,5 +76,3 @@ class LoggingService implements ProviderContract {
     };
   }
 }
-
-export default LoggingService;
