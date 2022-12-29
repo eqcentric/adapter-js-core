@@ -1,18 +1,16 @@
-import RouteRegistrar from '@http/RouteRegistrar';
-import ProviderContract from '@providers/ProviderContract';
-import { Express } from 'express';
+import { ProviderContract } from '@providers/ProviderContract';
+import { Express, Router } from 'express';
 
-class RouterService implements ProviderContract {
+export class RouterService implements ProviderContract {
   protected app: Express;
+  protected router: Router;
 
-  constructor(app: Express) {
+  constructor(app: Express, router: Router) {
     this.app = app;
+    this.router = router;
   }
 
   public boot() {
-    const provider = new RouteRegistrar();
-    this.app.use(provider.register());
+    this.app.use(this.router);
   }
 }
-
-export default RouterService;
