@@ -6,6 +6,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "eqcentric:registry": "https://npm.pkg.github.com"
+  },
   "description": "adapter js core ",
   "repository": "git@github.com:eqcentric/adapter-js-core.git",
   "author": "Nghia Le Trong",
