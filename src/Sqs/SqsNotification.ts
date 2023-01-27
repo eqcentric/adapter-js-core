@@ -1,0 +1,67 @@
+import { get } from "lodash";
+import ResolveSqs from '@sqs/ResolveSqs';
+import { SQS } from "aws-sdk";
+
+class SqsNotification {
+  private integrationId: number;
+  private options: Array<any>;
+  private apiUrl: string;
+  private static _instance: SqsNotification;
+  
+  private constructor(integrationId: number, apiUrl: string,  options: Array<any>) {
+    this.integrationId = integrationId;
+    this.apiUrl = apiUrl;
+    this.options = options;
+  }
+
+  public request(entity: string, totalRecords: number): boolean {
+    const tranId = get(this.options, 'headers.X-Integration-Trans-Id');
+    
+    const payload = {
+      keys: ['version'],
+      data: {
+        '_makini_sync_histories': [
+          {
+            version: tranId,
+            [entity]: totalRecords
+          }
+        ]
+      }
+    };
+
+    const message: SQS.SendMessageRequest = {
+      'QueueUrl': this.apiUrl,
+      'MessageAttributes': {
+        'integration_id': {
+            DataType: 'Number',
+            StringValue: `${this.integrationId}`
+        },
+        'X-Integration-Trans-Id': {
+            DataType: 'String',
+            StringValue: tranId
+        }
+      },
+      'MessageBody': JSON.stringify(payload)
+    }
+
+    const sqsClient = ResolveSqs.getInstance().resolveSqs();
+    sqsClient.sendMessage(message, (err, data) => {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        console.log("Success", data.MessageId);
+      }
+    });
+    return true;
+  }
+
+  static getInstance(integrationId: number, apiUrl: string, options: Array<any>) {
+    if (!this._instance) {
+      this._instance = new SqsNotification(integrationId, apiUrl, options);
+    }
+
+    return this._instance;
+  }
+}
+
+export default SqsNotification;

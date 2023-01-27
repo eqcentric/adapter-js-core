@@ -25,7 +25,8 @@
       "@*": ["*"],
       "@dto/*": ["Dto/*"],
       "@providers/*": ["Providers/*"],
-      "@configs/*": ["Config/*"]
+      "@configs/*": ["Config/*"],
+      "@sqs/*": ["Sqs/*"],
     }
   },
 //  "include": ["src/**/*.ts", "src/**/*.json", ".env"],

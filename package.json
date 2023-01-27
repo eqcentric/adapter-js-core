@@ -21,7 +21,6 @@
     "aws-sdk": "^2.1267.0",
     "axios": "^1.2.2",
     "lodash": "^4.17.21",
-    "tsyringe": "^4.7.0",
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "winston-cloudwatch": "^6.1.1",

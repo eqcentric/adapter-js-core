@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node';
 import '@sentry/tracing';
-import {ProviderContract} from '@providers/ProviderContract';
+import ProviderContract from '@providers/ProviderContract';
 import {SERVICE} from "@Config/service";
 
 export class SentryService implements ProviderContract {
