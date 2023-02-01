@@ -1,14 +1,17 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from "axios";
 import { padStart, merge, pick } from "lodash";
+import { Helpers } from "@Utils/Helpers";
+import SqsSendData from '@sqs/SqsSendData';
 import {
   internalMetadata,
   internalTransDto,
   internalPayloadStatus,
   internalScopesNotify,
+  internalPayload
 } from '@Dto/InternalDto';
 
 export class ApiClient {
-  private readonly options?: AxiosRequestConfig;
+  public readonly options?: AxiosRequestConfig;
   private client: AxiosInstance;
   private readonly apiUrl: string;
   private readonly integrationId: number;
@@ -71,6 +74,36 @@ export class ApiClient {
       },
     };
 
+    return Helpers.isSQS() ? this.sendSqsData(payload, collectionName) : this.sendLambdaData(payload, collectionName)
+  }
+
+  async sendLambdaData(data: internalPayload, collectionName: string): Promise<boolean> {
+    try {
+      const payload = this.buildData(data, collectionName);
+      await this.client.put(
+        `/internal/integrations/${this.integrationId}/data`,
+        payload
+      );
+  
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async sendSqsData(data: internalPayload, collectionName: string): Promise<boolean> {
+    try {
+      const sqs = new SqsSendData(this.integrationId, this.options);
+      const payload = this.buildData(data, collectionName);
+
+      return sqs.request(payload);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  buildData(payload: internalPayload, collectionName: string): any {
     const body = {
       meta: this.metaData,
       extraData: {
@@ -80,24 +113,24 @@ export class ApiClient {
       },
       ...payload,
     };
-
-    await this.client.put(
-      `/internal/integrations/${this.integrationId}/data`,
-      body
-    );
-
-    return true;
+    return body;
   }
 
-  notifyStatus(payload: internalPayloadStatus): Promise<boolean> {
-    return this.client.put(
+  async notifyStatus(payload: internalPayloadStatus): Promise<boolean>{
+    if ( Helpers.isSQS() ) {
+      return true;
+    }
+    return await this.client.put(
       `/internal/integrations/${this.integrationId}/status`,
       payload
     );
   }
 
-  notifySyncByScopes(payload: internalScopesNotify): Promise<boolean> {
-    return this.client.post(
+  async notifySyncByScopes(payload: internalScopesNotify): Promise<boolean> {
+    if ( Helpers.isSQS() ) {
+      return true;
+    }
+    return await this.client.post(
       `/internal/integrations/${this.integrationId}/notify-sync-done`,
       payload
     );

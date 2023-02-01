@@ -17,3 +17,8 @@ export type internalMetadata = {
   action: string;
   scopes: Array<string>;
 }
+
+export type internalPayload = {
+  keys: Array<string>,
+  data: any;
+}

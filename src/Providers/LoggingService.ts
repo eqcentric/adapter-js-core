@@ -1,31 +1,32 @@
-import {ProviderContract} from '@providers/ProviderContract';
+import ProviderContract from '@providers/ProviderContract';
 import { LOG } from '@configs/log';
-import { internalTransDto } from '@Dto/InternalDto';
-import { container, injectable } from 'tsyringe';
 import winston, { Logger } from 'winston';
 import winstonDaily from 'winston-daily-rotate-file';
 import WinstonCloudWatch from 'winston-cloudwatch';
 import AWS from 'aws-sdk';
+import { get } from 'lodash';
 
-@injectable()
-export class LoggingService implements ProviderContract {
-  boot(): any {
-    container.register('logger', {
-      useFactory: () => {
-        const channel: string = process.env.LOG_CHANNEL;
+class LoggingService {
+  req: Request;
 
-        if (channel === 'stderr') {
-          return this.stderr();
-        }
-
-        if (channel === 'single') {
-          return this.single();
-        }
-
-        return this.cloudwatch();
-      },
-    });
+  constructor(req: Request) {
+    this.req = req;
   }
+
+  getLogger(): Logger {
+    const channel: string = process.env.LOG_CHANNEL;
+
+    if (channel === 'stderr') {
+      return this.stderr();
+    }
+
+    if (channel === 'single') {
+      return this.single();
+    }
+
+    return this.cloudwatch();
+  }
+
   cloudwatch(): Logger {
     AWS.config.update({
       accessKeyId: LOG.channels.cloudwatch.secret_key,
@@ -34,11 +35,13 @@ export class LoggingService implements ProviderContract {
     });
 
     const logger = winston.createLogger(this.getFormat());
-    const trans: internalTransDto = container.resolve('trans');
+    // const trans: internalTransDto = container.resolve('trans');
+    // @TOD : put log to ECS
     const loggerConfig: any = {
       cloudWatchLogs: new AWS.CloudWatchLogs(),
-      logGroupName: '/aws/makini/integrations/' + trans.env,
-      logStreamName: trans.id,
+      logGroupName: '/aws/makini/integrations/' + get(this.req, 'query.trans.env'),
+      logStreamName: get(this.req, 'query.trans.id'),
+      transports: [new winston.transports.Console({})],
     };
     logger.add(new WinstonCloudWatch(loggerConfig));
 
@@ -76,3 +79,5 @@ export class LoggingService implements ProviderContract {
     };
   }
 }
+
+export default LoggingService;
