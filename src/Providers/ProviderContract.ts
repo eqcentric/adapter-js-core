@@ -1,5 +1,4 @@
-interface ProviderContract {
+export interface ProviderContract {
   boot(): any;
 }
 
-export default ProviderContract;

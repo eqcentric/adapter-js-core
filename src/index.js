@@ -1,6 +1,5 @@
 export { ProviderContract } from './Providers/ProviderContract'
 export { LoggingService } from './Providers/LoggingService'
-export { RouterService } from './Providers/RouterService'
 export { SentryService } from './Providers/SentryService'
 export { ZipkinService } from './Providers/ZipkinService'
 

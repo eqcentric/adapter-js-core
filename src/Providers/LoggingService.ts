@@ -1,4 +1,4 @@
-import ProviderContract from '@providers/ProviderContract';
+import { ProviderContract } from '@providers/ProviderContract';
 import { LOG } from '@configs/log';
 import winston, { Logger } from 'winston';
 import winstonDaily from 'winston-daily-rotate-file';
@@ -6,7 +6,7 @@ import WinstonCloudWatch from 'winston-cloudwatch';
 import AWS from 'aws-sdk';
 import { get } from 'lodash';
 
-class LoggingService {
+export class LoggingService {
   req: Request;
 
   constructor(req: Request) {
@@ -79,5 +79,3 @@ class LoggingService {
     };
   }
 }
-
-export default LoggingService;

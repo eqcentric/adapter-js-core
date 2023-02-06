@@ -1,11 +1,11 @@
 import { SERVICE } from '@Config/service';
-import ProviderContract from '@providers/ProviderContract';
+import { ProviderContract } from '@providers/ProviderContract';
 import { BatchRecorder, jsonEncoder, Tracer, sampler } from 'zipkin';
 import { app } from '@Config/app';
 import CLSContext from 'zipkin-context-cls';
 import { HttpLogger } from 'zipkin-transport-http';
 
-export default class ZipkinService implements ProviderContract {
+export class ZipkinService implements ProviderContract {
   boot(): any {
     const ctxImpl = new CLSContext('zipkin');
     const host = SERVICE.zipkin.host;
