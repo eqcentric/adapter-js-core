@@ -1,7 +1,7 @@
 import md5 from 'md5';
 import { padStart, omitBy, trim, toString, get, isEmpty } from 'lodash';
 import { Criteria, TypeTargetKey } from '@Dto/InternalDto';
-import { scopes } from '@Config/scopes';
+import { makiniScopes } from '@Config/scopes';
 
 export class MongoTransformer {
   protected hexKey: string;
@@ -47,7 +47,7 @@ export class MongoTransformer {
   }
 
   private prefix(collectionName: string): string {
-    return scopes[collectionName];
+    return makiniScopes[collectionName];
   }
 
   private hashId(input: object): string {

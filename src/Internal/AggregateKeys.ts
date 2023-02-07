@@ -3,7 +3,7 @@ import { Criteria } from '@Dto/InternalDto';
 import { MongoTransformer } from '@internal/MongoTransformer';
 import { TypeTargetKey } from '@Dto/InternalDto';
 import { isNull } from 'lodash';
-import { scopes } from '@Config/scopes';
+import { makiniScopes } from '@Config/scopes';
 
 export class AggregateKeys {
   protected mongoTransformer: MongoTransformer;
@@ -15,7 +15,7 @@ export class AggregateKeys {
   public makeKeys(response: Array<any>, scope: CollectionInterface): Array<any> {
     const targetKeys: Array<TypeTargetKey> = [];
     const criterias: Array<Criteria> = scope.getCriterias();
-    if ( scopes[scope.getName()] ) {
+    if ( makiniScopes[scope.getMongoScope()] ) {
       const primaryKeys = scope.getPrimaryKeys();
       primaryKeys.map(primaryKey => {
         targetKeys.push({

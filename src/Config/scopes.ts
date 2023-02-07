@@ -1,4 +1,4 @@
-export const scopes: Record<string, string> = {
+export const makiniScopes: Record<string, string> = {
   sites: '01',
   SITES: '01',
   assets: '02',
