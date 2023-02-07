@@ -6,5 +6,5 @@ export interface CollectionInterface {
   getMongoIndexed(): Array<string>;
   getMongoScope(): string | null;
   getPickFields(): Array<TypeMarkField>;
-  getCriterias(): Array<Criteria>;
+  getCriterias(integrationId?: number): Array<Criteria>;
 }
