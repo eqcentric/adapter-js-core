@@ -1,5 +1,7 @@
+import { CollectionInterface } from '@Dto/CollectionInterface';
 import { Criteria } from '@Dto/InternalDto';
 import { MongoTransformer } from '@internal/MongoTransformer';
+import { TypeTargetKey } from '@Dto/InternalDto';
 import { isNull } from 'lodash';
 
 export class AggregateKeys {
@@ -9,7 +11,22 @@ export class AggregateKeys {
     this.mongoTransformer = new MongoTransformer(integrationId);
   }
 
-  public relationKeys(response: Array<any>, criterias: Array<Criteria> | null): Array<any> {
+  public makeKeys(response: Array<any>, scope: CollectionInterface): Array<any> {
+    const criterias: Array<Criteria> = scope.getCriterias();
+    const targetKeys: Array<TypeTargetKey> = [];
+    const primaryKeys = scope.getPrimaryKeys();
+    primaryKeys.map(primaryKey => {
+      targetKeys.push({
+        key: primaryKey,
+        value: primaryKey
+      })
+    });
+    const keyCriteria = {
+      sourceKey: 'key',
+      collectionName: scope.getMongoScope(),
+      targetKeys: targetKeys,
+    };
+    criterias.push(keyCriteria);
     if ( isNull(criterias) ) {
       return response;
     }

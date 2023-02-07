@@ -6,7 +6,6 @@ export { ZipkinService } from './Providers/ZipkinService'
 export { ApiClient } from './Internal/ApiClient'
 export { AggregateKeys } from './Internal/AggregateKeys'
 export { PickFields } from './Internal/PickFields'
-export { ScopeKey } from './Internal/ScopeKey'
 export { MongoUtil } from './Internal/Utils'
 export { internalTransDto, internalPayloadStatus, internalScopesNotify, internalMetadata } from './Dto/InternalDto'
 export { CollectionInterface } from './Dto/CollectionInterface';
