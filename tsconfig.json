@@ -27,6 +27,7 @@
       "@providers/*": ["Providers/*"],
       "@configs/*": ["Config/*"],
       "@sqs/*": ["Sqs/*"],
+      "@internal/*": ["Internal/*"],
     }
   },
 //  "include": ["src/**/*.ts", "src/**/*.json", ".env"],

@@ -22,3 +22,20 @@ export type internalPayload = {
   keys: Array<string>,
   data: any;
 }
+
+export type TypeTargetKey = {
+  key: string;
+  value: string | number;
+};
+
+export type Criteria = {
+  sourceKey: string;
+  collectionName: string;
+  isFakeData?: boolean;
+  targetKeys?: Array<TypeTargetKey>;
+};
+
+export type TypeMarkField = {
+  source: string;
+  target: string;
+};
