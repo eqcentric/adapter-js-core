@@ -35,5 +35,7 @@ export const makiniScopes: Record<string, string> = {
   ACCOUNTS: '16',
   locations: '17',
   LOCATIONS: '17',
+  LABORS: '18',
+  labors: '18',
   TEST: '03',
 };
