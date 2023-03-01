@@ -28,9 +28,9 @@ export class MakiniKeys {
       criterias.push(primaryCriteria);
     }
 
-    for (const criteria of criterias) {
+    criterias.map(criteria => {
       record[criteria.sourceKey] = this.mongoTransformer.getKey(record, criteria);
-    }
+    });
 
     return record;
   }
