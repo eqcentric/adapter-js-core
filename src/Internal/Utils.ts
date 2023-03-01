@@ -85,6 +85,18 @@ export class MongoUtil {
     return this.typeOf(expression, '$toDate', defaultValue);
   }
 
+  static concat(expressions: string, delimiter = ' '): object {
+    const stringToArray = expressions.split(',');
+    const concatenation = [];
+
+    stringToArray.map(i => {
+      concatenation.push(i);
+      concatenation.push(delimiter);
+    });
+
+    return { $concat: concatenation };
+  }
+
   private static typeOf(expression: string, toType: string, defaultValue: any = null): object {
     return { $ifNull: [{ [toType]: expression }, defaultValue] };
   }
