@@ -5,21 +5,21 @@ import { TypeTargetKey } from '@Dto/InternalDto';
 import { isEmpty } from 'lodash';
 
 export default class MakiniKeys {
-  protected mongoTransformer: MongoTransformer;
-  protected static Instance: MakiniKeys = null;
+  private mongoTransformer: MongoTransformer;
+  private static Instance: MakiniKeys = null;
 
   constructor(integrationId: number) {
     this.mongoTransformer = new MongoTransformer(integrationId);
   }
 
-  public static getInstance(integrationId: number): MakiniKeys {
+  static getInstance(integrationId: number): MakiniKeys {
     if (!this.Instance) {
       this.Instance = new MakiniKeys(integrationId);
     }
     return this.Instance;
   }
 
-  public keys(record: any, scope: CollectionInterface): object
+  keys(record: any, scope: CollectionInterface): object
   {
     const criterias: Array<Criteria> = scope.getCriterias();
     const primaryCriteria = this.getPrimaryCriteria(scope);
