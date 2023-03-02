@@ -4,7 +4,7 @@ export { SentryService } from './Providers/SentryService'
 export { ZipkinService } from './Providers/ZipkinService'
 
 export { ApiClient } from './Internal/ApiClient'
-export { MakiniKeys } from '@internal/MakiniKeys'
+export { MakiniKeys } from './Internal/MakiniKeys'
 export { PickFields } from './Internal/PickFields'
 export { MongoUtil } from './Internal/Utils'
 export { internalTransDto, internalPayloadStatus, internalScopesNotify, internalMetadata } from './Dto/InternalDto'
