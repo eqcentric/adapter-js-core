@@ -1,8 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-//    "lib": ["es5", "esnext.asynciterable"],
+    "target": "es6",
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -30,6 +29,4 @@
       "@internal/*": ["Internal/*"],
     }
   },
-//  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
-//  "exclude": ["node_modules"]
 }

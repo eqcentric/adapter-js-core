@@ -10,20 +10,13 @@ export class MongoTransformer {
     this.hexKey = padStart(integrationId.toString(16), 6, '0');
   }
 
-  public appendKeys(data: Array<any>, criteria: Criteria): Array<any> {
-    for (const item of data) {
-      item[criteria.sourceKey] = this.appendKey(item, criteria);
-    }
-
-    return data;
-  }
-
-  private appendKey(data: any, itemValue: Criteria) {
-    const extractFilters = this.extractFilters(itemValue.targetKeys, data, itemValue.isFakeData);
+  public getKey(data: any, criteria: Criteria): string {
+    const extractFilters = this.extractFilters(criteria.targetKeys, data, criteria.isFakeData);
     const filter = omitBy(extractFilters, v => {
       return v === null || trim(toString(v)) === '';
     });
-    return this.makeKey(itemValue.collectionName, filter);
+
+    return this.makeKey(criteria.collectionName, filter);
   }
 
   private extractFilters(targetKeys: Array<TypeTargetKey>, data: any, isFakeData?: boolean): Record<string, string | number> {
