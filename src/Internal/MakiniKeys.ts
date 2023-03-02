@@ -56,4 +56,3 @@ export class MakiniKeys {
   }
 }
 
-export default MakiniKeys;
