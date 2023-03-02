@@ -4,7 +4,7 @@ import { MongoTransformer } from '@internal/MongoTransformer';
 import { TypeTargetKey } from '@Dto/InternalDto';
 import { isEmpty } from 'lodash';
 
-export class MakiniKeys {
+export default class MakiniKeys {
   protected mongoTransformer: MongoTransformer;
   protected static Instance: MakiniKeys = null;
 
