@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 
 export class MakiniKeys {
   protected mongoTransformer: MongoTransformer;
-  protected static Instance: MakiniKeys;
+  protected static Instance: MakiniKeys = null;
 
   constructor(integrationId: number) {
     this.mongoTransformer = new MongoTransformer(integrationId);
