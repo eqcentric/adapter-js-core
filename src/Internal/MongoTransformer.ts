@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import { padStart, omitBy, trim, toString, get, isEmpty } from 'lodash';
+import { padEnd, omitBy, trim, toString, get, isEmpty } from 'lodash';
 import { Criteria, TypeTargetKey } from '@Dto/InternalDto';
 import { makiniScopes } from '@Config/scopes';
 
@@ -7,7 +7,7 @@ export class MongoTransformer {
   protected hexKey: string;
 
   constructor(integrationId: number) {
-    this.hexKey = padStart(integrationId.toString(16), 6, '0');
+    this.hexKey = padEnd(integrationId.toString(16), 6, '0');
   }
 
   public getKey(data: any, criteria: Criteria): string {
