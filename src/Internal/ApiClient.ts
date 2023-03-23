@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from "axios";
-import { padStart, merge, pick } from "lodash";
+import { padEnd, merge, pick } from "lodash";
 import { Helpers } from "@Utils/Helpers";
 import SqsSendData from '@sqs/SqsSendData';
 import {
@@ -109,7 +109,7 @@ export class ApiClient {
       extraData: {
         isGenerateKey: this.mappingOutputViews.has(collectionName),
         collectionName: this.mappingOutputViews.get(collectionName),
-        hexKey: padStart(this.integrationId.toString(16), 6, "0"),
+        hexKey: padEnd(this.integrationId.toString(16), 6, "0"),
       },
       ...payload,
     };
