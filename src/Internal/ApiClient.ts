@@ -113,8 +113,6 @@ export class ApiClient {
       },
       ...payload,
     };
-    console.log(payload.data);
-    console.log(body);
     return body;
   }
 
