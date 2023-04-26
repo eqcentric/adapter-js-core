@@ -11,8 +11,6 @@ class SqsSendData {
     this.integrationId = integrationId;
     this.options = options;
     this.apiUrl = get(this.options, 'baseURL');
-    console.log(this.options);
-    console.log(this.apiUrl);
   }
 
   public request(payload: Array<any>): boolean {
