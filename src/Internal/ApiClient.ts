@@ -49,10 +49,14 @@ export class ApiClient {
     const tracingData: internalTransDto = options.tracingData;
     delete options.tracingData;
     if (tracingData.id != undefined && tracingData.env != undefined) {
-      merge(this.options.headers, {
+      const additionalHeaders = {
         "X-Integration-Trans-Id": tracingData.id,
         "X-Integration-Env": tracingData.env,
-      });
+      };
+      this.options.headers = {
+        ...this.options.headers,
+        ...additionalHeaders
+      };
     }
 
     // support for extraData
