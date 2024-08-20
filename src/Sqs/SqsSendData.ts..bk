@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import ResolveSqs from '@sqs/ResolveSqs';
+import ResolveSqs from '@Sqs/ResolveSqs.ts.bk';
 import { SQS } from "aws-sdk";
 
 class SqsSendData {

@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from "axios";
 import { padEnd, merge, pick } from "lodash";
 import { Helpers } from "@Utils/Helpers";
-import SqsSendData from '@sqs/SqsSendData';
 import {
   internalMetadata,
   internalTransDto,
@@ -74,7 +73,7 @@ export class ApiClient {
       },
     };
 
-    return Helpers.isSQS() ? this.sendSqsData(payload, collectionName) : this.sendLambdaData(payload, collectionName)
+    return this.sendLambdaData(payload, collectionName)
   }
 
   async sendLambdaData(data: internalPayload, collectionName: string): Promise<boolean> {
@@ -91,17 +90,6 @@ export class ApiClient {
     }
   }
 
-  async sendSqsData(data: internalPayload, collectionName: string): Promise<boolean> {
-    try {
-      const sqs = new SqsSendData(this.integrationId, this.options);
-      const payload = this.buildData(data, collectionName);
-
-      return sqs.request(payload);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
 
   buildData(payload: internalPayload, collectionName: string): any {
     const body = {

@@ -1,10 +1,6 @@
-import { ProviderContract } from '@providers/ProviderContract';
 import { LOG } from '@configs/log';
 import winston, { Logger } from 'winston';
 import winstonDaily from 'winston-daily-rotate-file';
-import WinstonCloudWatch from 'winston-cloudwatch';
-import AWS from 'aws-sdk';
-import { get } from 'lodash';
 
 export class LoggingService {
   req: Request;
@@ -24,29 +20,9 @@ export class LoggingService {
       return this.single();
     }
 
-    return this.cloudwatch();
+    return this.single();
   }
 
-  cloudwatch(): Logger {
-    AWS.config.update({
-      accessKeyId: LOG.channels.cloudwatch.secret_key,
-      secretAccessKey: LOG.channels.cloudwatch.access_key,
-      region: LOG.channels.cloudwatch.region,
-    });
-
-    const logger = winston.createLogger(this.getFormat());
-    // const trans: internalTransDto = container.resolve('trans');
-    // @TOD : put log to ECS
-    const loggerConfig: any = {
-      cloudWatchLogs: new AWS.CloudWatchLogs(),
-      logGroupName: '/aws/makini/integrations/' + get(this.req, 'query.trans.env'),
-      logStreamName: get(this.req, 'query.trans.id'),
-      transports: [new winston.transports.Console({})],
-    };
-    logger.add(new WinstonCloudWatch(loggerConfig));
-
-    return logger;
-  }
   single(): Logger {
     const format = this.getFormat();
     format.transports = [

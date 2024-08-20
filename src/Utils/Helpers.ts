@@ -1,4 +1,3 @@
-import SqsNotification from '@Sqs/SqsNotification';
 
 export class Helpers {
     static isSQS(): boolean {
@@ -6,11 +5,6 @@ export class Helpers {
     }
 
     static sendNotifyCompleted (integrationId: number, apiUrl: string, entity: string, totalRecords: number, options: [] ): boolean {
-        if ( Helpers.isSQS() ) {
-            const noti = SqsNotification.getInstance(integrationId, apiUrl, options);
-            noti.request(entity, totalRecords);
-        }
-
         return true;
     }
 }

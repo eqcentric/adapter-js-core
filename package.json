@@ -18,7 +18,6 @@
     "@aws-sdk/client-cloudwatch-logs": "^3.193.0",
     "@sentry/node": "^7.16.0",
     "@sentry/tracing": "^7.16.0",
-    "aws-sdk": "^2.1267.0",
     "axios": "^1.2.2",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
